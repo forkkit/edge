@@ -56,11 +56,13 @@ func MapCreateServiceToModel(service *rest_model.ServiceCreate) *model.Service {
 		BaseEntity: models.BaseEntity{
 			Tags: service.Tags,
 		},
-		Name:               stringz.OrEmpty(service.Name),
-		TerminatorStrategy: service.TerminatorStrategy,
-		RoleAttributes:     service.RoleAttributes,
-		Configs:            service.Configs,
-		EncryptionRequired: service.EncryptionRequired,
+		Name:                       stringz.OrEmpty(service.Name),
+		TerminatorStrategy:         service.TerminatorStrategy,
+		IdentityAddressingAllowed:  service.IdentityAddressingAllowed,
+		IdentityAddressingRequired: service.IdentityAddressingRequired,
+		RoleAttributes:             service.RoleAttributes,
+		Configs:                    service.Configs,
+		EncryptionRequired:         service.EncryptionRequired,
 	}
 
 	return ret
@@ -138,13 +140,15 @@ func MapServicesToRestEntity(ae *env.AppEnv, rc *response.RequestContext, es []*
 
 func MapServiceToRestModel(service *model.ServiceDetail) (*rest_model.ServiceDetail, error) {
 	ret := &rest_model.ServiceDetail{
-		BaseEntity:         BaseEntityToRestModel(service, ServiceLinkFactory),
-		Name:               &service.Name,
-		TerminatorStrategy: &service.TerminatorStrategy,
-		RoleAttributes:     service.RoleAttributes,
-		Configs:            service.Configs,
-		Config:             service.Config,
-		EncryptionRequired: &service.EncryptionRequired,
+		BaseEntity:                 BaseEntityToRestModel(service, ServiceLinkFactory),
+		Name:                       &service.Name,
+		TerminatorStrategy:         &service.TerminatorStrategy,
+		IdentityAddressingAllowed:  &service.IdentityAddressingAllowed,
+		IdentityAddressingRequired: &service.IdentityAddressingAllowed,
+		RoleAttributes:             service.RoleAttributes,
+		Configs:                    service.Configs,
+		Config:                     service.Config,
+		EncryptionRequired:         &service.EncryptionRequired,
 	}
 
 	for _, permission := range service.Permissions {

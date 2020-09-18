@@ -30,11 +30,13 @@ import (
 
 type Service struct {
 	models.BaseEntity
-	Name               string   `json:"name"`
-	TerminatorStrategy string   `json:"terminatorStrategy"`
-	RoleAttributes     []string `json:"roleAttributes"`
-	Configs            []string `json:"configs"`
-	EncryptionRequired bool     `json:"encryptionRequired"`
+	Name                       string   `json:"name"`
+	TerminatorStrategy         string   `json:"terminatorStrategy"`
+	IdentityAddressingAllowed  bool     `json:"identityAddressingAllowed"`
+	IdentityAddressingRequired bool     `json:"identityAddressingRequired"`
+	RoleAttributes             []string `json:"roleAttributes"`
+	Configs                    []string `json:"configs"`
+	EncryptionRequired         bool     `json:"encryptionRequired"`
 }
 
 func (entity *Service) toBoltEntity(tx *bbolt.Tx, handler Handler) (boltz.Entity, error) {
@@ -44,9 +46,11 @@ func (entity *Service) toBoltEntity(tx *bbolt.Tx, handler Handler) (boltz.Entity
 
 	edgeService := &persistence.EdgeService{
 		Service: db.Service{
-			BaseExtEntity:      *boltz.NewExtEntity(entity.Id, entity.Tags),
-			Name:               entity.Name,
-			TerminatorStrategy: entity.TerminatorStrategy,
+			BaseExtEntity:              *boltz.NewExtEntity(entity.Id, entity.Tags),
+			Name:                       entity.Name,
+			TerminatorStrategy:         entity.TerminatorStrategy,
+			IdentityAddressingAllowed:  entity.IdentityAddressingAllowed,
+			IdentityAddressingRequired: entity.IdentityAddressingRequired,
 		},
 		RoleAttributes:     entity.RoleAttributes,
 		Configs:            entity.Configs,
@@ -98,6 +102,8 @@ func (entity *Service) fillFrom(_ Handler, _ *bbolt.Tx, boltEntity boltz.Entity)
 	entity.FillCommon(boltService)
 	entity.Name = boltService.Name
 	entity.TerminatorStrategy = boltService.TerminatorStrategy
+	entity.IdentityAddressingAllowed = boltService.IdentityAddressingAllowed
+	entity.IdentityAddressingRequired = boltService.IdentityAddressingRequired
 	entity.RoleAttributes = boltService.RoleAttributes
 	entity.Configs = boltService.Configs
 	entity.EncryptionRequired = boltService.EncryptionRequired
@@ -106,13 +112,15 @@ func (entity *Service) fillFrom(_ Handler, _ *bbolt.Tx, boltEntity boltz.Entity)
 
 type ServiceDetail struct {
 	models.BaseEntity
-	Name               string                            `json:"name"`
-	TerminatorStrategy string                            `json:"terminatorStrategy"`
-	RoleAttributes     []string                          `json:"roleAttributes"`
-	Permissions        []string                          `json:"permissions"`
-	Configs            []string                          `json:"configs"`
-	Config             map[string]map[string]interface{} `json:"config"`
-	EncryptionRequired bool                              `json:"encryptionRequired"`
+	Name                       string                            `json:"name"`
+	TerminatorStrategy         string                            `json:"terminatorStrategy"`
+	IdentityAddressingAllowed  bool                              `json:"identityAddressingAllowed"`
+	IdentityAddressingRequired bool                              `json:"identityAddressingRequired"`
+	RoleAttributes             []string                          `json:"roleAttributes"`
+	Permissions                []string                          `json:"permissions"`
+	Configs                    []string                          `json:"configs"`
+	Config                     map[string]map[string]interface{} `json:"config"`
+	EncryptionRequired         bool                              `json:"encryptionRequired"`
 }
 
 func (entity *ServiceDetail) fillFrom(_ Handler, _ *bbolt.Tx, boltEntity boltz.Entity) error {
@@ -123,6 +131,8 @@ func (entity *ServiceDetail) fillFrom(_ Handler, _ *bbolt.Tx, boltEntity boltz.E
 	entity.FillCommon(boltService)
 	entity.Name = boltService.Name
 	entity.TerminatorStrategy = boltService.TerminatorStrategy
+	entity.IdentityAddressingAllowed = boltService.IdentityAddressingAllowed
+	entity.IdentityAddressingRequired = boltService.IdentityAddressingRequired
 	entity.RoleAttributes = boltService.RoleAttributes
 	entity.Configs = boltService.Configs
 	entity.EncryptionRequired = boltService.EncryptionRequired

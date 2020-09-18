@@ -47,6 +47,12 @@ type ServiceCreate struct {
 	// encryption required
 	EncryptionRequired bool `json:"encryptionRequired,omitempty"`
 
+	// identity addressing allowed
+	IdentityAddressingAllowed bool `json:"identityAddressingAllowed,omitempty"`
+
+	// identity addressing required
+	IdentityAddressingRequired bool `json:"identityAddressingRequired,omitempty"`
+
 	// name
 	// Required: true
 	Name *string `json:"name"`

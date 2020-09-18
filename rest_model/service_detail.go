@@ -54,6 +54,14 @@ type ServiceDetail struct {
 	// Required: true
 	EncryptionRequired *bool `json:"encryptionRequired"`
 
+	// identity addressing allowed
+	// Required: true
+	IdentityAddressingAllowed *bool `json:"identityAddressingAllowed"`
+
+	// identity addressing required
+	// Required: true
+	IdentityAddressingRequired *bool `json:"identityAddressingRequired"`
+
 	// name
 	// Required: true
 	Name *string `json:"name"`
@@ -88,6 +96,10 @@ func (m *ServiceDetail) UnmarshalJSON(raw []byte) error {
 
 		EncryptionRequired *bool `json:"encryptionRequired"`
 
+		IdentityAddressingAllowed *bool `json:"identityAddressingAllowed"`
+
+		IdentityAddressingRequired *bool `json:"identityAddressingRequired"`
+
 		Name *string `json:"name"`
 
 		Permissions DialBindArray `json:"permissions"`
@@ -105,6 +117,10 @@ func (m *ServiceDetail) UnmarshalJSON(raw []byte) error {
 	m.Configs = dataAO1.Configs
 
 	m.EncryptionRequired = dataAO1.EncryptionRequired
+
+	m.IdentityAddressingAllowed = dataAO1.IdentityAddressingAllowed
+
+	m.IdentityAddressingRequired = dataAO1.IdentityAddressingRequired
 
 	m.Name = dataAO1.Name
 
@@ -133,6 +149,10 @@ func (m ServiceDetail) MarshalJSON() ([]byte, error) {
 
 		EncryptionRequired *bool `json:"encryptionRequired"`
 
+		IdentityAddressingAllowed *bool `json:"identityAddressingAllowed"`
+
+		IdentityAddressingRequired *bool `json:"identityAddressingRequired"`
+
 		Name *string `json:"name"`
 
 		Permissions DialBindArray `json:"permissions"`
@@ -147,6 +167,10 @@ func (m ServiceDetail) MarshalJSON() ([]byte, error) {
 	dataAO1.Configs = m.Configs
 
 	dataAO1.EncryptionRequired = m.EncryptionRequired
+
+	dataAO1.IdentityAddressingAllowed = m.IdentityAddressingAllowed
+
+	dataAO1.IdentityAddressingRequired = m.IdentityAddressingRequired
 
 	dataAO1.Name = m.Name
 
@@ -182,6 +206,14 @@ func (m *ServiceDetail) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEncryptionRequired(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIdentityAddressingAllowed(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIdentityAddressingRequired(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -244,6 +276,24 @@ func (m *ServiceDetail) validateConfigs(formats strfmt.Registry) error {
 func (m *ServiceDetail) validateEncryptionRequired(formats strfmt.Registry) error {
 
 	if err := validate.Required("encryptionRequired", "body", m.EncryptionRequired); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ServiceDetail) validateIdentityAddressingAllowed(formats strfmt.Registry) error {
+
+	if err := validate.Required("identityAddressingAllowed", "body", m.IdentityAddressingAllowed); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ServiceDetail) validateIdentityAddressingRequired(formats strfmt.Registry) error {
+
+	if err := validate.Required("identityAddressingRequired", "body", m.IdentityAddressingRequired); err != nil {
 		return err
 	}
 

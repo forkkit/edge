@@ -7040,6 +7040,12 @@ func init() {
         "encryptionRequired": {
           "type": "boolean"
         },
+        "identityAddressingAllowed": {
+          "type": "boolean"
+        },
+        "identityAddressingRequired": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -7068,6 +7074,8 @@ func init() {
           "required": [
             "name",
             "terminatorStrategy",
+            "identityAddressingAllowed",
+            "identityAddressingRequired",
             "roleAttributes",
             "permissions",
             "configs",
@@ -7092,6 +7100,12 @@ func init() {
               }
             },
             "encryptionRequired": {
+              "type": "boolean"
+            },
+            "identityAddressingAllowed": {
+              "type": "boolean"
+            },
+            "identityAddressingRequired": {
               "type": "boolean"
             },
             "name": {
@@ -22842,6 +22856,12 @@ func init() {
         "encryptionRequired": {
           "type": "boolean"
         },
+        "identityAddressingAllowed": {
+          "type": "boolean"
+        },
+        "identityAddressingRequired": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -22870,6 +22890,8 @@ func init() {
           "required": [
             "name",
             "terminatorStrategy",
+            "identityAddressingAllowed",
+            "identityAddressingRequired",
             "roleAttributes",
             "permissions",
             "configs",
@@ -22894,6 +22916,12 @@ func init() {
               }
             },
             "encryptionRequired": {
+              "type": "boolean"
+            },
+            "identityAddressingAllowed": {
+              "type": "boolean"
+            },
+            "identityAddressingRequired": {
               "type": "boolean"
             },
             "name": {
